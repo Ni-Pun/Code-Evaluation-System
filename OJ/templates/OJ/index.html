@@ -1,0 +1,22 @@
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Problems List</title>
+  </head>
+  <body>
+    <h3>Can You Solve...?</h3>
+    <p>
+        {% if problem_list %}
+        <ul>         
+            {% for p in problem_list %}
+                <li><a href="/{{ p.Id }}/">{{ p.Name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No problems are available.</p>
+        {% endif %}
+    </p>
+  </body>
+</html> 

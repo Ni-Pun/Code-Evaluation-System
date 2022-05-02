@@ -1,0 +1,35 @@
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Verdict</title>
+  </head>
+  <body>
+    <label for = "testing"> <b> Test Cases Verdict </b> <br>
+    <ul id = "testing">         
+      {% for p in resrun %}
+          <li>Testcase {{p.0}}:
+            {% if p.1 %}
+                Pass
+            {%else%}
+                Fail
+            {%endif%}
+          </li>
+      {% endfor %}
+    </ul>
+  </label>
+    <label for= comperr> <b> Error Box </b> <br>
+    <textarea id = "comperr" rows = "10" cols= "50" disabled>{{ rescomp}}</textarea>
+    </label> <br>
+
+    <label for= result> <b> Result Box </b> <br>
+      <textarea id= "result" rows = "10" cols= "50" disabled>{{ resrun}}</textarea> 
+      </label> <br>
+    
+    <label for= subcode> <b> Your Code </b> <br>
+      <textarea id= "subcode" rows = "10" cols= "50" disabled>{{ code }}</textarea> 
+      </label>
+    
+  </body>
+</html> 

@@ -1,0 +1,115 @@
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Problem Description</title>
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
+
+  </head>
+  <body>
+    <h3 center>P{{problem.Id}}:  {{problem.Name}}</h3>
+    <hr>
+    <div>
+      {% comment %} <pre> {% endcomment %}
+        <div> <b>Problem Statement :</b> <br> {{problem.Statement}} </div>
+        <div> <b> Input :</b> <br> {{problem.InputDir}} </div>
+        <div> <b> Output :</b> <br> {{problem.OutputDir}} </div>
+        <div> <b> Constraints: </b> <br> {{problem.Constraints}} </div>
+        <div> <b> Example:</b> <br>
+          <pre> {{problem.Example}} </pre>
+        </div>               
+          
+          
+          {% comment %} {% if problem_list %}
+          <ul>         
+              {% for p in problem_list %}
+                  <li><a href="/{{ p.Id }}/">{{ p.Name }}</a></li>
+              {% endfor %}
+          </ul>
+          {% else %}
+              <p>No problems are available.</p>
+          {% endif %} {% endcomment %}
+      {% comment %} </pre> {% endcomment %}
+    </div>
+    {% comment %} <pre>
+        <b> Your Task: </b> <br> {{problem.Task}}
+    </pre>
+     <pre>
+        
+     </pre> {% endcomment %}
+     <hr>
+     <form action = "validate" method = "post"> 
+        {% csrf_token %}
+        <label for ="na">Select Language</label>
+        <select name = 'type' id="na">
+           <option value="C">C</option>
+           <option value="C++">C++</option>
+           <option value="Java">Java</option>
+           <option value="Python">Python</option>
+        </select>
+   
+        <p>
+           <textarea name='code' id = 'kuch_bhi' rows = "30" cols= "100">Write your code here !!</textarea>          
+            
+       </p>         
+       <button>Submit</button>
+
+    </form>
+    <div id="editor" style="height: 200px">
+    </div>
+    
+  
+   
+  </body>
+    <!-- Include the Quill library -->
+
+  
+</html> 
+
+    
+<!-- Initialize Quill editor -->
+<script type="text/javascript">
+
+var container;
+
+var quill;
+
+function CheckValidation(sender, args) {
+
+$("#hdnRadStripValue").val(sender.get_selectedIndex());
+
+}
+
+function load_Quill() {
+
+container = document.getElementById('myFirstQuill');
+
+quill= new Quill(container, {
+
+
+modules: {
+
+history: {
+
+delay: 2000,
+
+maxStack: 500,
+
+userOnly: true
+}
+},
+theme: 'snow'}
+);
+}
+</script>
+
+ {% comment %} <script>
+
+  var editor = new Quill('editor');
+  editor.addModule('toolbar', { container: 'toolbar' });
+
+</script>  {% endcomment %}
