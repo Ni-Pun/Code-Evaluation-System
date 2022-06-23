@@ -8,7 +8,7 @@
   <body>
     <label for = "testing"> <b> Test Cases Verdict </b> <br>
     <ul id = "testing">         
-      {% for p in resrun %}
+      {% for p in fout %}
           <li>Testcase {{p.0}}:
             {% if p.1 %}
                 Pass
@@ -24,7 +24,10 @@
     </label> <br>
 
     <label for= result> <b> Result Box </b> <br>
-      <textarea id= "result" rows = "10" cols= "50" disabled>{{ resrun}}</textarea> 
+      <textarea id= "result" rows = "10" cols= "50" disabled value="resurn">
+        {% for ans in resrun %}
+         {{ans}}
+        {% endfor %}</textarea> 
       </label> <br>
     
     <label for= subcode> <b> Your Code </b> <br>

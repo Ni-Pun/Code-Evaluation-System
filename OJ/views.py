@@ -16,6 +16,7 @@ def index(request):
     
 
 def detail(request, Id):
+
     problem = Problem.objects.get(Id=Id)
     context = {
         'problem' : problem,
@@ -67,5 +68,5 @@ def validate(request,Id):
         verdict="Success"
     p = Submission.objects.create(problem=problem, verdict=verdict, submittedAt=timezone.now())
 
-    return render (request,'OJ/results.html', {'code':code,'resrun':fout,'rescomp':rescomp})     
+    return render (request,'OJ/results.html', {'code':code,'resrun':resrun,'fout':fout,'rescomp':rescomp})     
 

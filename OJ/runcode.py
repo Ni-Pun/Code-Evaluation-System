@@ -90,17 +90,22 @@ class RunPyCode(object):
         stdout = []
         cmd = [sys.executable, cmd]
         for dat in inp:
-            data, temp = os.pipe()    
+            output = subprocess.run('docker run -i python:0.3', shell=True,  stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True,input=dat.encode())
+            actual = output.stdout.decode().strip('\n')
+            # data, temp = os.pipe()    
         
-            os.write(temp, bytes(dat, "utf-8"))
-            os.close(temp)  
+            # os.write(temp, bytes(dat, "utf-8"))
+            # os.close(temp)  
 
-            p = subprocess.Popen(cmd, shell =True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin = data)
-            result = p.wait()
+            # p = subprocess.Popen(cmd, shell =True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin = data)
+            # result = output.wait()
             
-            a, b = p.communicate()
-            stdout.append(a.decode("utf-8"))
-            self.stderr = b.decode("utf-8")
+            # a, b = output.communicate()
+            # stdout.append(a.decode("utf-8"))
+            # self.stderr = b.decode("utf-8")
+            stdout.append(actual)
+            self.stderr = output.stderr.decode()
+
         self.stdout = stdout
 
     def writecode(self, filename, code=None):
