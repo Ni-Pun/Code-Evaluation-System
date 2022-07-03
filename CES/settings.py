@@ -15,14 +15,16 @@ import subprocess
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-f=subprocess.run('docker build -f Dockerfile -t python:0.3 .', shell=True)
-# Quick-start development settings - unsuitable for production
+# f=subprocess.run('docker build -f Dockerfile -t python:0.3 .', shell=True)
+j = subprocess.run('docker build -f Java_DockerFile -t java:0.3 .', shell=True)
+
+# Quick-start development settings - unsuitable for productio
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-fqooaa%4a3khw3mkch^kxx&#f!_*yr(=7o%3$hiwk7)=8l%a_t'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in productio
 DEBUG = True
 
 ALLOWED_HOSTS = []

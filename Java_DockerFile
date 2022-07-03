@@ -1,0 +1,4 @@
+FROM openjdk:latest
+# COPY running .
+# # CMD [ "sh", "java.sh" ]
+# ENTRYPOINT [ "java.sh" ]

@@ -66,21 +66,35 @@ class RunPyCode(object):
         try:
             stdout = []
             for dat in inp:
-                data, temp = os.pipe()    
+                # data, temp = os.pipe()    
         
-                os.write(temp, bytes(dat, "utf-8"))
-                os.close(temp)
+                # os.write(temp, bytes(dat, "utf-8"))
+                # os.close(temp)
 
-                output = subprocess.check_output("javac Hello.java", shell = True,cwd="./running", stderr=subprocess.STDOUT)
-                p = subprocess.check_output("java Hello", stdin = data,shell = True,cwd="./running", stderr=subprocess.PIPE)
-                # self.stdout = p.decode("utf-8")
-                stdout.append(p.decode("utf-8"))
+                # output = subprocess.check_output("javac Hello.java", shell = True,cwd="./running", stderr=subprocess.STDOUT)
+                # p = subprocess.check_output("java Hello", stdin = data,shell = True,cwd="./running", stderr=subprocess.PIPE)
+
+                print('check...123...123')
+                # j = subprocess.run('docker build -f Java_DockerFile -t java:0.3 .', shell=True)
+                output = subprocess.run('docker run --rm -v D:/courses/OJ/CES/running:/app -w /app java:0.3 javac Hello.java', shell=True, stdout= subprocess.PIPE, stderr=subprocess.PIPE, check=True, input=dat.encode())
+                print('checking...123...123')
+                output = subprocess.run('docker run --rm -v D:/courses/OJ/CES/running:/app -w /app java:0.3 java Hello', shell=True, stdout= subprocess.PIPE, stderr=subprocess.PIPE, check=True, input=dat.encode())                
+                # out_compile = subprocess.run('docker run -d java:0.3 javac Hello.java', shell=True, stdout= subprocess.PIPE, stderr=subprocess.PIPE, check=True, input=dat.encode())
+                # out_runtime= subprocess.run("docker exec -it $out_compile java Hello", shell=True, stdout= subprocess.PIPE, stderr=subprocess.PIPE, check=True, input=dat.encode())
+
+                # print(output)
+                actual = output.stdout.decode().strip('\n')
+                # print(actual)
+                print('checked...123....123')
+                
+                stdout.append(actual)
                 self.stderr=None
             self.stdout = stdout
 
         except subprocess.CalledProcessError as e:
-             self.stderr= e.output.decode()
-             self.stdout=None
+            print(e)
+            self.stderr= e.output.decode()
+            self.stdout=None
         except Exception as e:
             # check_call can raise other exceptions, such as FileNotFoundError
             self.stderr = str(e)
